@@ -74,7 +74,7 @@ class ControlClass:
         while self.setting_screen_loop:
             self.show_setting_screen()
             entrance = input()
-            self.control_setting(entrance)#33333333333333333333333333333333
+            self.control_setting(entrance)
 
     def level_screen(self):
         self.level_screen_loop = True
