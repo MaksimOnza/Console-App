@@ -11,7 +11,6 @@ class MainClass:
         start = ControlClass()
         print('MainClass')
     
-
 class ControlClass:
     firstStart = False
     start_game = False
@@ -23,6 +22,7 @@ class ControlClass:
     def __init__(self):
         self.start_game = True
         self.start_function()
+       
 
     def start_function(self):
         while self.start_game:
@@ -36,6 +36,11 @@ class ControlClass:
     def show_start_screen(self):
         self.showScreen = ShowClass()
         self.showScreen.show_start_screen()
+
+    def screen_image_ascii(self):
+        showScreen = ShowClass()
+        showScreen.image_ascii()
+        input()
 
     def show_level_screen(self):
         showScreen = ShowClass()
@@ -69,7 +74,7 @@ class ControlClass:
         while self.setting_screen_loop:
             self.show_setting_screen()
             entrance = input()
-            self.control_setting(entrance)
+            self.control_setting(entrance)#33333333333333333333333333333333
 
     def level_screen(self):
         self.level_screen_loop = True
@@ -81,15 +86,13 @@ class ControlClass:
     def first_choice(self, entrance):
         if entrance == Constants.ENTER:
             print('Enter')
+            self.screen_image_ascii()
             #Enter_condition(entrance)
         elif entrance == Constants.LEVEL:
-            print('Level')
             self.setting_screen()
-            #Level_condition(entrance)
         elif entrance == Constants.ESCAPE:
             print('Escape')
             self.start_game = False
-            #Escape_condition()
         elif entrance == Constants.SETTINGS:
             print('Setting')
             self.setting_screen()
@@ -138,6 +141,31 @@ class ShowClass:
         print('Level II ->  press   2')
         print('Level III -> press   3')
         print('UP ->        press   E')
+
+    def image_ascii(self):
+        print('.............................................')
+        print('.............................................')
+        print('......................*......................')
+        print('.............+........#......................')
+        print('..............#................=.............')
+        print('.............................................')
+        print('.......@#............@##@....................')
+        print('.................#::::::::::#.......#+.......')
+        print('...............#:::::::=#:::::=..............')
+        print('..............:::::::*===::::::..............')
+        print('....:+#.......#:::::::#@:%#=:::#.......-.....')
+        print('..............#::::#%#:%#==::::=.............')
+        print('...............#:::#==#:*:::::#..............')
+        print('................#::::::::::::%...............')
+        print('......*:.........#:::+###:::#........##......')
+        print('..................#########+.................')
+        print('..................##########.................')
+        print('...................#%%%%%%#..................')
+        print('...................#%%%%%%#..................')
+        print('...................#@@@@@@#..................')
+        print('....................#@%%@#...................')
+        print('.....................####....................')
+        print('.............................................')
 
 
 m = MainClass()
