@@ -1,10 +1,16 @@
-import os, platform
+import os, platform, time, re
 
-class Constants:
-    ENTER = ''
-    LEVEL = 'l'
-    ESCAPE = 'e'
-    SETTINGS = 's'
+if(platform.system() == 'Windows'):
+    import colorama
+    colorama.init()
+
+
+ENTER = ''
+LEVEL = 'l'
+ESCAPE = 'e'
+SETTINGS = 's'
+COLOR = 'c'
+
 
 class MainClass:
     def __init__(self):
@@ -16,6 +22,7 @@ class ControlClass:
     start_game = False
     setting_screen_loop = False
     level_screen_loop = False
+    color_screen_loop = False
     level_screen = False
     level_game = 0
     
@@ -46,6 +53,10 @@ class ControlClass:
         showScreen = ShowClass()
         showScreen.show_level_screen()
 
+    def show_color_screen(self):
+        showScreen = ShowClass()
+        showScreen.show_color_screen()
+
     def show_setting_screen(self):
         showScreen = ShowClass()
         showScreen.show_setting_screen()
@@ -63,10 +74,22 @@ class ControlClass:
         else:
             self.level_game = 0
 
+    def control_color(self, entrance):
+        temp = re.match(r'\d', entrance)
+        if entrance == temp.group(0):
+            ColorClass.select_color(self, entrance)
+        elif entrance =='e':
+            self.level_game = 0
+            self.color_screen_loop = False
+        else:
+            self.level_game = 0
+
     def control_setting(self, entrance):
-        if entrance == Constants.LEVEL:
+        if entrance == LEVEL:
             self.level_screen()
-        elif entrance == Constants.ESCAPE:
+        if entrance == COLOR:
+            self.color_screen()
+        elif entrance == ESCAPE:
             self.setting_screen_loop = False
 
     def setting_screen(self):
@@ -83,17 +106,24 @@ class ControlClass:
             entrance = input()
             self.control_level(entrance)
 
+    def color_screen(self):
+        self.color_screen_loop = True
+        while self.color_screen_loop:
+            self.show_color_screen()
+            entrance = input()
+            self.control_color(entrance)
+
     def first_choice(self, entrance):
-        if entrance == Constants.ENTER:
+        if entrance == ENTER:
             print('Enter')
             self.screen_image_ascii()
             #Enter_condition(entrance)
-        elif entrance == Constants.LEVEL:
+        elif entrance == LEVEL:
             self.setting_screen()
-        elif entrance == Constants.ESCAPE:
+        elif entrance == ESCAPE:
             print('Escape')
             self.start_game = False
-        elif entrance == Constants.SETTINGS:
+        elif entrance == SETTINGS:
             print('Setting')
             self.setting_screen()
             #Settings_condition()
@@ -117,6 +147,7 @@ class ShowClass:
 
     def show_start_screen(self):
         self.clear_screen()
+        #print(ColorClass.White)
         print()
         print('Start ->     press   ENTER')
         print('Settings ->  press   S')
@@ -127,6 +158,7 @@ class ShowClass:
 
     def show_setting_screen(self):
         self.clear_screen()
+        #print(ColorClass.White)
         print()
         print('Level ->     press   L')
         print('Speed ->     press   S')
@@ -135,6 +167,7 @@ class ShowClass:
 
     def show_level_screen(self):
         self.clear_screen()
+        #print(ColorClass.White)
         print()
         print('Choice a level\n')
         print('Level I ->   press   1')
@@ -142,7 +175,25 @@ class ShowClass:
         print('Level III -> press   3')
         print('UP ->        press   E')
 
+    def show_color_screen(self):
+        self.clear_screen()
+        #print(ColorClass.White)
+        print()
+        print('Choice a color\n')
+        print('Red ->       press   1')
+        print('Green ->     press   2')
+        print('Yellow ->    press   3')
+        print('Blue ->      press   4')
+        print('Magenta ->   press   5')
+        print('Cyan  ->     press   6')
+        print('White  ->    press   7')
+        print('Grey  ->     press   8')
+        print('BOLD  ->     press   9')
+        print('UP ->        press   E')
+
+
     def image_ascii(self):
+        
         print('.............................................')
         print('.............................................')
         print('......................*......................')
@@ -166,6 +217,38 @@ class ShowClass:
         print('....................#@%%@#...................')
         print('.....................####....................')
         print('.............................................')
+
+class ColorClass:
+
+    Red = '\033[91m'
+    Green = '\033[92m'
+    Yellow = '\033[93m'
+    Blue = '\033[94m'
+    Magenta = '\033[95m'
+    Cyan = '\033[96m'
+    White = '\033[97m'
+    Grey = '\033[90m'
+    BOLD = '\033[1m'
+    ITALIC = '\033[3m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
+
+    #def __init__():
+    dict_color = {
+                1:'\033[91m',
+                2:'\033[92m',
+                3:'\033[93m',
+                4:'\033[94m',
+                5:'\033[95m',
+                6:'\033[96m',
+                7:'\033[97m',
+                8:'\033[90m',
+                9:'\033[1m'
+                }
+
+    def select_color(self, color):
+        print(ColorClass.dict_color[int(color)])
+        print('select_color')
 
 
 m = MainClass()
