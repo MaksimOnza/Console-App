@@ -147,7 +147,6 @@ class ShowClass:
 
     def show_start_screen(self):
         self.clear_screen()
-        #print(ColorClass.White)
         print()
         print('Start ->     press   ENTER')
         print('Settings ->  press   S')
@@ -158,7 +157,6 @@ class ShowClass:
 
     def show_setting_screen(self):
         self.clear_screen()
-        #print(ColorClass.White)
         print()
         print('Level ->     press   L')
         print('Speed ->     press   S')
@@ -167,7 +165,6 @@ class ShowClass:
 
     def show_level_screen(self):
         self.clear_screen()
-        #print(ColorClass.White)
         print()
         print('Choice a level\n')
         print('Level I ->   press   1')
@@ -177,7 +174,6 @@ class ShowClass:
 
     def show_color_screen(self):
         self.clear_screen()
-        #print(ColorClass.White)
         print()
         print('Choice a color\n')
         print('Red ->       press   1')
